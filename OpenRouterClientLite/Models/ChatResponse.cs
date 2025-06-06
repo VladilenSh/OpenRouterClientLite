@@ -1,4 +1,4 @@
-﻿using OpenRouterClientNet9.Models;
+﻿using OpenRouterClientLite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,13 +6,13 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace OpenRouterClientNet9.Models
+namespace OpenRouterClientLite.Models
 {
     internal class ChatResponse
     {
     }
 }
-namespace OpenRouterClientNet9
+namespace OpenRouterClientLite
 {
     /// <summary>
     /// Ответ от API OpenRouter, чат((Тело сообщения, причина остановки),(токены на промт, токены на ответ, токены в сумме))

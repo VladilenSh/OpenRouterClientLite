@@ -1,9 +1,9 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OpenRouterClientNet9.Models;
+using OpenRouterClientLite.Models;
 
-namespace OpenRouterClientNet9
+namespace OpenRouterClientLite
 {
     /// <summary>
     /// Клиент для работы с API OpenRouter

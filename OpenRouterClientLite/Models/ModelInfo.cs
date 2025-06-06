@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenRouterClientNet9.Models
+namespace OpenRouterClientLite.Models
 {
     /// <summary>
     /// Информация о модели
