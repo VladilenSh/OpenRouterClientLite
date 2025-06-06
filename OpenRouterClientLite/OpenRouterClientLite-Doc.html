@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenRouterClientLite Documentation</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --primary-color: #007acc;
+            --secondary-color: #f0f0f0;
+            --border-color: #dddddd;
+            --code-bg: #f8f8f8;
+            --header-bg: #f5f5f5;
+            --keyword-color: #0000ff;
+            --type-color: #2b91af;
+            --string-color: #a31515;
+            --comment-color: #008000;
+            --numeric-color: #098658;
+            --method-color: #795e26;
+            --parameter-color: #001080;
+            --punctuation-color: #000000;
+        }
+
+        .dark-theme {
+            --bg-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --primary-color: #569cd6;
+            --secondary-color: #252526;
+            --border-color: #444444;
+            --code-bg: #2d2d2d;
+            --header-bg: #333333;
+            --keyword-color: #569cd6;
+            --type-color: #4ec9b0;
+            --string-color: #ce9178;
+            --comment-color: #6a9955;
+            --numeric-color: #b5cea8;
+            --method-color: #dcdcaa;
+            --parameter-color: #9cdcfe;
+            --punctuation-color: #d4d4d4;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.2em;
+        }
+
+        h2 {
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            margin-top: 30px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        select, button {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        select:focus, button:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        code, pre {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background-color: var(--code-bg);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        pre {
+            padding: 15px;
+            overflow-x: auto;
+            border-left: 3px solid var(--primary-color);
+            position: relative;
+        }
+
+        pre::before {
+            content: 'C#';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            font-size: 0.8em;
+            border-radius: 0 0 0 4px;
+        }
+
+        .keyword { color: var(--keyword-color); }
+        .type { color: var(--type-color); }
+        .string { color: var(--string-color); }
+        .comment { color: var(--comment-color); font-style: italic; }
+        .numeric { color: var(--numeric-color); }
+        .method { color: var(--method-color); }
+        .parameter { color: var(--parameter-color); }
+        .punctuation { color: var(--punctuation-color); }
+
+        .method {
+            background-color: var(--secondary-color);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .method-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .method-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary-color);
+        }
+
+        .method-params {
+            margin-top: 10px;
+        }
+
+        .param {
+            margin-bottom: 8px;
+        }
+
+        .param-name {
+            font-weight: bold;
+        }
+
+        .param-type {
+            color: #888;
+            font-style: italic;
+        }
+
+        .param-desc {
+            margin-left: 15px;
+        }
+
+        .note {
+            background-color: rgba(0, 122, 204, 0.1);
+            border-left: 3px solid var(--primary-color);
+            padding: 10px 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--header-bg);
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: rgba(0, 122, 204, 0.05);
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>OpenRouterClientLite</h1>
+            <div class="controls">
+                <select id="language-selector">
+                    <option value="en">English</option>
+                    <option value="ru">Русский</option>
+                </select>
+                <select id="theme-selector">
+                    <option value="light">Light Theme</option>
+                    <option value="dark">Dark Theme</option>
+                </select>
+            </div>
+        </header>
+
+        <div id="en-content" class="content-section active">
+            <section>
+                <h2>Introduction</h2>
+                <p>OpenRouterClientLite is a .NET 9 client library for interacting with the OpenRouter API. It provides a simple and efficient way to access various AI models available through the OpenRouter platform.</p>
+                
+                <div class="note">
+                    <p><strong>Note:</strong> This library requires an API key from OpenRouter. You can obtain one by signing up at <a href="https://openrouter.ai" target="_blank">openrouter.ai</a>.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Installation</h2>
+                <p>You can install the package via NuGet Package Manager:</p>
+                <pre><code class="language-csharp">
+<span class="punctuation">Install-Package</span> <span class="type">OpenRouterClientLite</span>
+</code></pre>
+                <p>Or via .NET CLI:</p>
+                <pre><code class="language-csharp">
+<span class="punctuation">dotnet</span> <span class="keyword">add</span> <span class="keyword">package</span> <span class="type">OpenRouterClientLite</span>
+</code></pre>
+            </section>
+
+            <section>
+                <h2>Getting Started</h2>
+                <p>First, create an instance of the OpenRouterClient with your API key:</p>
+                <pre><code class="language-csharp">
+<span class="keyword">using</span> <span class="type">OpenRouterClientLite</span><span class="punctuation">;</span>
+
+<span class="keyword">var</span> client <span class="punctuation">=</span> <span class="keyword">new</span> <span class="type">OpenRouterClient</span><span class="punctuation">(</span><span class="string">"your-api-key-here"</span><span class="punctuation">)</span><span class="punctuation">;</span>
+</code></pre>
+
+                <p>Optionally, you can provide your application name and website URL:</p>
+                <pre><code class="language-csharp">
+<span class="keyword">var</span> client <span class="punctuation">=</span> <span class="keyword">new</span> <span class="type">OpenRouterClient</span><span class="punctuation">(</span>
+    <span class="string">"your-api-key-here"</span><span class="punctuation">,</span> 
+    <span class="string">"MyAwesomeApp"</span><span class="punctuation">,</span> 
+    <span class="string">"https://myapp.com"</span>
+<span class="punctuation">)</span><span class="punctuation">;</span>
+</code></pre>
+            </section>
+
+            <section>
+                <h2>API Reference</h2>
+
+                <div class="method">
+                    <div class="method-header">
+                        <span class="method-name">OpenRouterClient(string apiKey, string? appName = null, string? siteUrl = null)</span>
+                    </div>
+                    <p>Constructor for the OpenRouter client.</p>
+                    <div class="method-params">
+                        <div class="param">
+                            <span class="param-name">apiKey</span> <span class="param-type">string</span>
+                            <div class="param-desc">Your OpenRouter API key</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">appName</span> <span class="param-type">string?</span>
+                            <div class="param-desc">Optional application name (will be sent in X-Title header)</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">siteUrl</span> <span class="param-type">string?</span>
+                            <div class="param-desc">Optional website URL (will be sent in HTTP-Referer header)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method">
+                    <div class="method-header">
+                        <span class="method-name">GetModelsAsync(CancellationToken cts = default)</span>
+                    </div>
+                    <p>Retrieves a list of available models from OpenRouter.</p>
+                    <h3>Example:</h3>
+                    <pre><code class="language-csharp">
+<span class="keyword">var</span> models <span class="punctuation">=</span> <span class="keyword">await</span> client<span class="punctuation">.</span><span class="method">GetModelsAsync</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+<span class="keyword">foreach</span> <span class="punctuation">(</span><span class="keyword">var</span> model <span class="keyword">in</span> models<span class="punctuation">)</span>
+<span class="punctuation">{</span>
+    <span class="type">Console</span><span class="punctuation">.</span><span class="method">WriteLine</span><span class="punctuation">(</span><span class="string">$"</span><span class="punctuation">{</span>model<span class="punctuation">.</span>Id<span class="punctuation">}</span> <span class="punctuation">-</span> <span class="punctuation">{</span>model<span class="punctuation">.</span>Name<span class="punctuation">}</span><span class="string">"</span><span class="punctuation">)</span><span class="punctuation">;</span>
+<span class="punctuation">}</span>
+</code></pre>
+                    <h3>Returns:</h3>
+                    <p>Array of <code>ModelInfo</code> objects containing information about available models.</p>
+                </div>
+
+                <div class="method">
+                    <div class="method-header">
+                        <span class="method-name">GenerateResponseAsync(string model, string prompt, double? temperature = null, int? maxTokens = null, CancellationToken cts = default)</span>
+                    </div>
+                    <p>Generates a response from the specified model based on the given prompt.</p>
+                    <h3>Parameters:</h3>
+                    <div class="method-params">
+                        <div class="param">
+                            <span class="param-name">model</span> <span class="param-type">string</span>
+                            <div class="param-desc">The model ID to use for generation</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">prompt</span> <span class="param-type">string</span>
+                            <div class="param-desc">The input prompt for the model</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">temperature</span> <span class="param-type">double?</span>
+                            <div class="param-desc">Controls randomness (lower = more deterministic)</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">maxTokens</span> <span class="param-type">int?</span>
+                            <div class="param-desc">Maximum number of tokens to generate</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">cts</span> <span class="param-type">CancellationToken</span>
+                            <div class="param-desc">Cancellation token</div>
+                        </div>
+                    </div>
+                    <h3>Example:</h3>
+                    <pre><code class="language-csharp">
+<span class="keyword">var</span> response <span class="punctuation">=</span> <span class="keyword">await</span> client<span class="punctuation">.</span><span class="method">GenerateResponseAsync</span><span class="punctuation">(</span>
+    <span class="string">"openai/gpt-3.5-turbo"</span><span class="punctuation">,</span>
+    <span class="string">"Tell me a joke about programming"</span><span class="punctuation">,</span>
+    temperature<span class="punctuation">:</span> <span class="numeric">0.7</span><span class="punctuation">,</span>
+    maxTokens<span class="punctuation">:</span> <span class="numeric">100</span>
+<span class="punctuation">)</span><span class="punctuation">;</span>
+
+<span class="type">Console</span><span class="punctuation">.</span><span class="method">WriteLine</span><span class="punctuation">(</span>response<span class="punctuation">.</span>ChatCompletionChoice<span class="punctuation">[</span><span class="numeric">0</span><span class="punctuation">]</span><span class="punctuation">.</span>GeneratedMessage<span class="punctuation">.</span>Content<span class="punctuation">)</span><span class="punctuation">;</span>
+</code></pre>
+                    <h3>Returns:</h3>
+                    <p>A <code>ChatResponse</code> object containing the model's response.</p>
+                </div>
+
+                <div class="method">
+                    <div class="method-header">
+                        <span class="method-name">Dispose()</span>
+                    </div>
+                    <p>Disposes the underlying HttpClient. Make sure to call this when you're done with the client.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Models and Responses</h2>
+                <h3>ModelInfo Structure</h3>
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>Id</td>
+                        <td>string</td>
+                        <td>Unique identifier for the model</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>string</td>
+                        <td>Display name of the model</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>string</td>
+                        <td>Description of the model</td>
+                    </tr>
+                    <tr>
+                        <td>Pricing</td>
+                        <td>PricingInfo</td>
+                        <td>Information about pricing (prompt/completion)</td>
+                    </tr>
+                </table>
+
+                <h3>ChatResponse Structure</h3>
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>Id</td>
+                        <td>string</td>
+                        <td>Unique identifier for the completion</td>
+                    </tr>
+                    <tr>
+                        <td>Model</td>
+                        <td>string</td>
+                        <td>Model used for generation</td>
+                    </tr>
+                    <tr>
+                        <td>ChatCompletionChoice</td>
+                        <td>ChatChoice[]</td>
+                        <td>Array of generated responses</td>
+                    </tr>
+                    <tr>
+                        <td>Usage</td>
+                        <td>UsageInfo</td>
+                        <td>Token usage information</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section>
+                <h2>Error Handling</h2>
+                <p>The library may throw the following exceptions:</p>
+                <ul>
+                    <li><code>HttpRequestException</code> - when API requests fail</li>
+                    <li><code>InvalidOperationException</code> - when API returns unexpected responses</li>
+                    <li><code>JsonException</code> - when response parsing fails</li>
+                </ul>
+                <p>Always wrap API calls in try-catch blocks:</p>
+                <pre><code class="language-csharp">
+<span class="keyword">try</span>
+<span class="punctuation">{</span>
+    <span class="keyword">var</span> response <span class="punctuation">=</span> <span class="keyword">await</span> client<span class="punctuation">.</span><span class="method">GenerateResponseAsync</span><span class="punctuation">(</span><span class="punctuation">.</span><span class="punctuation">.</span><span class="punctuation">.</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="comment">// Process response</span>
+<span class="punctuation">}</span>
+<span class="keyword">catch</span> <span class="punctuation">(</span><span class="type">HttpRequestException</span> ex<span class="punctuation">)</span>
+<span class="punctuation">{</span>
+    <span class="type">Console</span><span class="punctuation">.</span><span class="method">WriteLine</span><span class="punctuation">(</span><span class="string">$"API request failed: </span><span class="punctuation">{</span>ex<span class="punctuation">.</span>GeneratedMessage<span class="punctuation">}</span><span class="string">"</span><span class="punctuation">)</span><span class="punctuation">;</span>
+<span class="punctuation">}</span>
+</code></pre>
+            </section>
+
+            <section>
+                <h2>Best Practices</h2>
+                <ul>
+                    <li>Always dispose the client when done (or use it with <code>using</code> statement)</li>
+                    <li>Specify reasonable timeouts for production applications</li>
+                    <li>Handle rate limits (429 responses) with exponential backoff</li>
+                    <li>Cache model lists when possible as they don't change frequently</li>
+                </ul>
+            </section>
+        </div>
+
+        <div id="ru-content" class="content-section">
+            <section>
+                <h2>Введение</h2>
+                <p>OpenRouterClientLite - это клиентская библиотека для .NET 9, предназначенная для взаимодействия с API OpenRouter. Она предоставляет простой и эффективный способ доступа к различным AI-моделям, доступным через платформу OpenRouter.</p>
+                
+                <div class="note">
+                    <p><strong>Примечание:</strong> Для работы библиотеки требуется API-ключ от OpenRouter. Вы можете получить его, зарегистрировавшись на <a href="https://openrouter.ai" target="_blank">openrouter.ai</a>.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Установка</h2>
+                <p>Вы можете установить пакет через NuGet Package Manager:</p>
+                <pre><code class="language-csharp">
+<span class="punctuation">Install-Package</span> <span class="type">OpenRouterClientLite</span>
+</code></pre>
+                <p>Или через .NET CLI:</p>
+                <pre><code class="language-csharp">
+<span class="punctuation">dotnet</span> <span class="keyword">add</span> <span class="keyword">package</span> <span class="type">OpenRouterClientLite</span>
+</code></pre>
+            </section>
+
+            <section>
+                <h2>Начало работы</h2>
+                <p>Сначала создайте экземпляр OpenRouterClient с вашим API-ключом:</p>
+                <pre><code class="language-csharp">
+<span class="keyword">using</span> <span class="type">OpenRouterClientLite</span><span class="punctuation">;</span>
+
+<span class="keyword">var</span> client <span class="punctuation">=</span> <span class="keyword">new</span> <span class="type">OpenRouterClient</span><span class="punctuation">(</span><span class="string">"ваш-api-ключ"</span><span class="punctuation">)</span><span class="punctuation">;</span>
+</code></pre>
+
+                <p>При необходимости вы можете указать название приложения и URL сайта:</p>
+                <pre><code class="language-csharp">
+<span class="keyword">var</span> client <span class="punctuation">=</span> <span class="keyword">new</span> <span class="type">OpenRouterClient</span><span class="punctuation">(</span>
+    <span class="string">"ваш-api-ключ"</span><span class="punctuation">,</span> 
+    <span class="string">"МоеПриложение"</span><span class="punctuation">,</span> 
+    <span class="string">"https://мойсайт.com"</span>
+<span class="punctuation">)</span><span class="punctuation">;</span>
+</code></pre>
+            </section>
+
+            <section>
+                <h2>Справочник API</h2>
+
+                <div class="method">
+                    <div class="method-header">
+                        <span class="method-name">OpenRouterClient(string apiKey, string? appName = null, string? siteUrl = null)</span>
+                    </div>
+                    <p>Конструктор клиента OpenRouter.</p>
+                    <div class="method-params">
+                        <div class="param">
+                            <span class="param-name">apiKey</span> <span class="param-type">string</span>
+                            <div class="param-desc">Ваш API-ключ OpenRouter</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">appName</span> <span class="param-type">string?</span>
+                            <div class="param-desc">Необязательное название приложения (будет отправлено в заголовке X-Title)</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">siteUrl</span> <span class="param-type">string?</span>
+                            <div class="param-desc">Необязательный URL сайта (будет отправлен в заголовке HTTP-Referer)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method">
+                    <div class="method-header">
+                        <span class="method-name">GetModelsAsync(CancellationToken cts = default)</span>
+                    </div>
+                    <p>Получает список доступных моделей OpenRouter.</p>
+                    <h3>Пример:</h3>
+                    <pre><code class="language-csharp">
+<span class="keyword">var</span> models <span class="punctuation">=</span> <span class="keyword">await</span> client<span class="punctuation">.</span><span class="method">GetModelsAsync</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+<span class="keyword">foreach</span> <span class="punctuation">(</span><span class="keyword">var</span> model <span class="keyword">in</span> models<span class="punctuation">)</span>
+<span class="punctuation">{</span>
+    <span class="type">Console</span><span class="punctuation">.</span><span class="method">WriteLine</span><span class="punctuation">(</span><span class="string">$"</span><span class="punctuation">{</span>model<span class="punctuation">.</span>Id<span class="punctuation">}</span> <span class="punctuation">-</span> <span class="punctuation">{</span>model<span class="punctuation">.</span>Name<span class="punctuation">}</span><span class="string">"</span><span class="punctuation">)</span><span class="punctuation">;</span>
+<span class="punctuation">}</span>
+</code></pre>
+                    <h3>Возвращает:</h3>
+                    <p>Массив объектов <code>ModelInfo</code>, содержащих информацию о доступных моделях.</p>
+                </div>
+
+                <div class="method">
+                    <div class="method-header">
+                        <span class="method-name">GenerateResponseAsync(string model, string prompt, double? temperature = null, int? maxTokens = null, CancellationToken cts = default)</span>
+                    </div>
+                    <p>Генерирует ответ от указанной модели на основе заданного промта.</p>
+                    <h3>Параметры:</h3>
+                    <div class="method-params">
+                        <div class="param">
+                            <span class="param-name">model</span> <span class="param-type">string</span>
+                            <div class="param-desc">Идентификатор модели для генерации</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">prompt</span> <span class="param-type">string</span>
+                            <div class="param-desc">Входной промт для модели</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">temperature</span> <span class="param-type">double?</span>
+                            <div class="param-desc">Контролирует случайность (меньше = более детерминировано)</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">maxTokens</span> <span class="param-type">int?</span>
+                            <div class="param-desc">Максимальное количество токенов для генерации</div>
+                        </div>
+                        <div class="param">
+                            <span class="param-name">cts</span> <span class="param-type">CancellationToken</span>
+                            <div class="param-desc">Токен отмены</div>
+                        </div>
+                    </div>
+                    <h3>Пример:</h3>
+                    <pre><code class="language-csharp">
+<span class="keyword">var</span> response <span class="punctuation">=</span> <span class="keyword">await</span> client<span class="punctuation">.</span><span class="method">GenerateResponseAsync</span><span class="punctuation">(</span>
+    <span class="string">"openai/gpt-3.5-turbo"</span><span class="punctuation">,</span>
+    <span class="string">"Расскажи анекдот про программистов"</span><span class="punctuation">,</span>
+    temperature<span class="punctuation">:</span> <span class="numeric">0.7</span><span class="punctuation">,</span>
+    maxTokens<span class="punctuation">:</span> <span class="numeric">100</span>
+<span class="punctuation">)</span><span class="punctuation">;</span>
+
+<span class="type">Console</span><span class="punctuation">.</span><span class="method">WriteLine</span><span class="punctuation">(</span>response<span class="punctuation">.</span>ChatCompletionChoice<span class="punctuation">[</span><span class="numeric">0</span><span class="punctuation">]</span><span class="punctuation">.</span>GeneratedMessage<span class="punctuation">.</span>Content<span class="punctuation">)</span><span class="punctuation">;</span>
+</code></pre>
+                    <h3>Возвращает:</h3>
+                    <p>Объект <code>ChatResponse</code>, содержащий ответ модели.</p>
+                </div>
+
+                <div class="method">
+                    <div class="method-header">
+                        <span class="method-name">Dispose()</span>
+                    </div>
+                    <p>Освобождает ресурсы HttpClient. Убедитесь, что вызываете этот метод по завершении работы с клиентом.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Модели и ответы</h2>
+                <h3>Структура ModelInfo</h3>
+                <table>
+                    <tr>
+                        <th>Свойство</th>
+                        <th>Тип</th>
+                        <th>Описание</th>
+                    </tr>
+                    <tr>
+                        <td>Id</td>
+                        <td>string</td>
+                        <td>Уникальный идентификатор модели</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>string</td>
+                        <td>Отображаемое имя модели</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>string</td>
+                        <td>Описание модели</td>
+                    </tr>
+                    <tr>
+                        <td>Pricing</td>
+                        <td>PricingInfo</td>
+                        <td>Информация о стоимости (промт/завершение)</td>
+                    </tr>
+                </table>
+
+                <h3>Структура ChatResponse</h3>
+                <table>
+                    <tr>
+                        <th>Свойство</th>
+                        <th>Тип</th>
+                        <th>Описание</th>
+                    </tr>
+                    <tr>
+                        <td>Id</td>
+                        <td>string</td>
+                        <td>Уникальный идентификатор ответа</td>
+                    </tr>
+                    <tr>
+                        <td>Model</td>
+                        <td>string</td>
+                        <td>Модель, использованная для генерации</td>
+                    </tr>
+                    <tr>
+                        <td>ChatCompletionChoice</td>
+                        <td>ChatChoice[]</td>
+                        <td>Массив сгенерированных ответов</td>
+                    </tr>
+                    <tr>
+                        <td>Usage</td>
+                        <td>UsageInfo</td>
+                        <td>Информация об использовании токенов</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section>
+                <h2>Обработка ошибок</h2>
+                <p>Библиотека может выбрасывать следующие исключения:</p>
+                <ul>
+                    <li><code>HttpRequestException</code> - при неудачных запросах к API</li>
+                    <li><code>InvalidOperationException</code> - при неожиданных ответах API</li>
+                    <li><code>JsonException</code> - при ошибках парсинга ответов</li>
+                </ul>
+                <p>Всегда оборачивайте вызовы API в try-catch блоки:</p>
+                <pre><code class="language-csharp">
+<span class="keyword">try</span>
+<span class="punctuation">{</span>
+    <span class="keyword">var</span> response <span class="punctuation">=</span> <span class="keyword">await</span> client<span class="punctuation">.</span><span class="method">GenerateResponseAsync</span><span class="punctuation">(</span><span class="punctuation">.</span><span class="punctuation">.</span><span class="punctuation">.</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="comment">// Обработка ответа</span>
+<span class="punctuation">}</span>
+<span class="keyword">catch</span> <span class="punctuation">(</span><span class="type">HttpRequestException</span> ex<span class="punctuation">)</span>
+<span class="punctuation">{</span>
+    <span class="type">Console</span><span class="punctuation">.</span><span class="method">WriteLine</span><span class="punctuation">(</span><span class="string">$"Ошибка запроса к API: </span><span class="punctuation">{</span>ex<span class="punctuation">.</span>GeneratedMessage<span class="punctuation">}</span><span class="string">"</span><span class="punctuation">)</span><span class="punctuation">;</span>
+<span class="punctuation">}</span>
+</code></pre>
+            </section>
+
+            <section>
+                <h2>Рекомендации</h2>
+                <ul>
+                    <li>Всегда освобождайте клиент по завершении работы (или используйте using)</li>
+                    <li>Устанавливайте разумные таймауты для production-приложений</li>
+                    <li>Обрабатывайте ограничения скорости (ответы 429) с экспоненциальной задержкой</li>
+                    <li>Кэшируйте списки моделей, так как они меняются нечасто</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Language switching
+        document.getElementById('language-selector').addEventListener('change', function() {
+            document.getElementById('en-content').classList.remove('active');
+            document.getElementById('ru-content').classList.remove('active');
+            document.getElementById(this.value + '-content').classList.add('active');
+            
+            // Save preference to localStorage
+            localStorage.setItem('languagePreference', this.value);
+        });
+
+        // Theme switching
+        document.getElementById('theme-selector').addEventListener('change', function() {
+            if (this.value === 'dark') {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+            
+            // Save preference to localStorage
+            localStorage.setItem('themePreference', this.value);
+        });
+
+        // Check for saved preferences on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Language preference
+            const savedLanguage = localStorage.getItem('languagePreference');
+            if (savedLanguage) {
+                document.getElementById('language-selector').value = savedLanguage;
+                document.getElementById('en-content').classList.remove('active');
+                document.getElementById('ru-content').classList.remove('active');
+                document.getElementById(savedLanguage + '-content').classList.add('active');
+            }
+
+            // Theme preference
+            const savedTheme = localStorage.getItem('themePreference');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.getElementById('theme-selector').value = 'dark';
+            }
+        });
+    </script>
+</body>
+</html>
