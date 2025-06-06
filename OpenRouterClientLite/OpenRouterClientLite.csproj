@@ -10,20 +10,24 @@
     <Company>QZAS</Company>
     <Description>Библиотека OpenRouterClientLite предоставляет удобный интерфейс для работы с API OpenRouter на платформе .NET</Description>
     <Copyright>GPL-3.0-only</Copyright>
-    <PackageIcon>open router.png</PackageIcon>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    <PackageProjectUrl>qzas.ru</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VladilenSh/OpenRouterClientLite</RepositoryUrl>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Documents\open router.png">
+    <None Update="icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\..\..\Downloads\README.md">
+    <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-    </None>    
+    </None>
   </ItemGroup>
 
 </Project>
