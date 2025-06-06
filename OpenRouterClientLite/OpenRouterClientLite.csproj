@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>OpenRouterClientLite</Title>
+    <Authors>VladilenSh</Authors>
+    <Company>QZAS</Company>
+    <Description>Библиотека OpenRouterClientLite предоставляет удобный интерфейс для работы с API OpenRouter на платформе .NET</Description>
+    <Copyright>GPL-3.0-only</Copyright>
+    <PackageIcon>open router.png</PackageIcon>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Documents\open router.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\..\..\Downloads\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>    
+  </ItemGroup>
+
+</Project>
