@@ -18,14 +18,14 @@ namespace OpenRouterClientLite
     /// Ответ от API OpenRouter, чат((Тело сообщения, причина остановки),(токены на промт, токены на ответ, токены в сумме))
     /// </summary>
     public record ChatResponse(
-        [property: JsonPropertyName("chat_completion_choices")] ChatCompletionChoice[] ChatCompletionChoice,
+        [property: JsonPropertyName("choices")] ChatCompletionChoice[] ChatCompletionChoice,
         [property: JsonPropertyName("usage")] UsageTokens UsageTokens);
 
     /// <summary>
     /// Вариант ответа модели(Тело сообщения, причина остановки)
     /// </summary>
     public record ChatCompletionChoice(
-        [property: JsonPropertyName("generated_message")] GeneratedMessage GeneratedMessage,
+        [property: JsonPropertyName("message")] GeneratedMessage GeneratedMessage,
         [property: JsonPropertyName("finish_reason")] string FinishReason);
 
     /// <summary>

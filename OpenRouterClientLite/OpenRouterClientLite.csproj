@@ -16,7 +16,7 @@
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <PackageProjectUrl>qzas.ru</PackageProjectUrl>
     <RepositoryUrl>https://github.com/VladilenSh/OpenRouterClientLite</RepositoryUrl>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
