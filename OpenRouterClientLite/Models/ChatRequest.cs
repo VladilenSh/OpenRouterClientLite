@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using OpenRouterClientLite.Models;
+using System.Text.Json.Serialization;
 
 namespace OpenRouterClientLite.Models
 {
@@ -7,7 +8,7 @@ namespace OpenRouterClientLite.Models
     /// </summary>
     public record ChatRequest(
         [property: JsonPropertyName("model")] string Model,
-        [property: JsonPropertyName("generated_messages")] GeneratedMessage[] Messages,
+        [property: JsonPropertyName("messages")] GeneratedMessage[] Messages,
         [property: JsonPropertyName("temperature")] double? Temperature = null,
         [property: JsonPropertyName("max_tokens")] int? MaxTokens = null);
 }
